@@ -45,6 +45,14 @@ To preview the compiled site locally before deploying:
 npm run preview
 ```
 
+### 6. Deploy to GitHub Pages
+
+To deploy the latest build directly to GitHub Pages:
+
+```bash
+npm run deploy
+```
+
 ---
 
 ## 🛠️ Tech Stack & Features
