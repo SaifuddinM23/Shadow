@@ -3,8 +3,8 @@ import { ArrowUpRight, Award, Crown, X, Target, Activity, Flame, Zap, Volume2, V
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(1);
+  const [isUnlocked, setIsUnlocked] = useState(true);
   const [duration, setDuration] = useState(10); // Dynamically set from video metadata
 
   // Background Music States & Refs
@@ -22,7 +22,7 @@ function App() {
 
   // Initialize background music and handle autoplay browser policies
   useEffect(() => {
-    const audio = new Audio('/the_batman_theme.mp3');
+    const audio = new Audio(`${import.meta.env.BASE_URL}the_batman_theme.mp3`);
     audio.loop = true;
     audio.volume = musicMuted ? 0 : musicVolume;
     audioRef.current = audio;
@@ -1227,7 +1227,7 @@ function App() {
   return (
     <div 
       className="relative w-full flex flex-col text-white bg-black select-none bg-cover bg-center bg-no-repeat bg-fixed"
-      style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('/storm_clouds_bg.png')` }}
+      style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('${import.meta.env.BASE_URL}storm_clouds_bg.png')` }}
     >
       
       {/* CANVAS LIGHTNING OVERLAY */}
@@ -1242,6 +1242,8 @@ function App() {
         {/* UNIFIED FULLSCREEN VIDEO BACKGROUND */}
         <video
           ref={videoRef}
+          autoPlay
+          loop
           muted
           playsInline
           preload="auto"
@@ -1270,7 +1272,7 @@ function App() {
             }
           }}
         >
-          <source src="/main_screen.mp4" type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}main_screen.mp4`} type="video/mp4" />
         </video>
         
         {/* Dark overlays to match original style */}
@@ -1295,7 +1297,7 @@ function App() {
       {/* STORM SECTION */}
       <section 
         className="relative w-full h-[80vh] overflow-hidden bg-black flex items-center justify-center border-t border-b border-white/5 z-20 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url('/storm_clouds_bg.png')` }}
+        style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url('${import.meta.env.BASE_URL}storm_clouds_bg.png')` }}
       >
         <video
           muted
@@ -1304,7 +1306,7 @@ function App() {
           autoPlay
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-35 pointer-events-none mix-blend-screen"
         >
-          <source src="/arena.mp4" type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}arena.mp4`} type="video/mp4" />
         </video>
         {/* Blending gradient overlay to merge video background with adjacent sections */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none" style={{ zIndex: 5 }} />
@@ -1343,7 +1345,7 @@ function App() {
         id="games" 
         ref={gamesSectionRef}
         className="relative z-20 bg-zinc-950 py-24 px-6 sm:px-10 lg:px-16 border-t border-white/10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `linear-gradient(to bottom, rgba(9,9,11,0.85), rgba(9,9,11,0.92)), url('/storm_clouds_bg.png')` }}
+        style={{ backgroundImage: `linear-gradient(to bottom, rgba(9,9,11,0.85), rgba(9,9,11,0.92)), url('${import.meta.env.BASE_URL}storm_clouds_bg.png')` }}
       >
         <div className="max-w-7xl mx-auto">
           
@@ -1352,7 +1354,7 @@ function App() {
             {/* Glowing clouds background glow behind header */}
             <div 
               className="absolute -inset-16 bg-cover bg-center bg-no-repeat opacity-[0.65] pointer-events-none blur-2xl rounded-full"
-              style={{ backgroundImage: "url('/storm_clouds_bg.png')", zIndex: 0 }}
+              style={{ backgroundImage: `url('${import.meta.env.BASE_URL}storm_clouds_bg.png')`, zIndex: 0 }}
             />
             <div className="relative z-10 flex flex-col items-start">
               <span className="text-red-500 font-noto tracking-[0.2em] text-xs uppercase mb-4 block font-semibold">
@@ -1409,7 +1411,7 @@ function App() {
                         }
                       }}
                     >
-                      <source src="/samurai.mp4" type="video/mp4" />
+                      <source src={`${import.meta.env.BASE_URL}samurai.mp4`} type="video/mp4" />
                     </video>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/80" />
