@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Award, Crown, X, Target, Activity, Flame, Zap, Volume2, VolumeX, Play, Pause, Music } from 'lucide-react';
+import { ArrowUpRight, Award, Crown, X, CircleDot, Disc3, Goal, HandFist, Volume2, VolumeX, Play, Pause, Music } from 'lucide-react';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(1);
-  const [isUnlocked, setIsUnlocked] = useState(true);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const [duration, setDuration] = useState(10); // Dynamically set from video metadata
 
   // Background Music States & Refs
@@ -132,7 +132,7 @@ function App() {
       description: "Step up to the pitch in augmented reality. Face virtual pacers and spinners, time your bat swings, and test your footwork in real-time.",
       linkText: "Enter Pitch",
       jpLinkText: "ENTER PITCH // 01",
-      icon: Target,
+      icon: CircleDot,
       startTime: 0,
     },
     {
@@ -142,7 +142,7 @@ function App() {
       description: "A high-velocity precision rally. Slice, spin, and smash virtual table tennis balls using fast hand gesture and paddle tracking.",
       linkText: "Start Rally",
       jpLinkText: "START RALLY // 02",
-      icon: Activity,
+      icon: Disc3,
       startTime: 3,
     },
     {
@@ -152,7 +152,7 @@ function App() {
       description: "Run, dribble, and shoot virtual soccer balls. Track full-body kinetics and test your target accuracy with zero equipment.",
       linkText: "Take Strike",
       jpLinkText: "TAKE STRIKE // 03",
-      icon: Flame,
+      icon: Goal,
       startTime: 6,
     },
     {
@@ -162,7 +162,7 @@ function App() {
       description: "Step into the Kombat Arena. Dodge, weave, and throw real punches mapped to dynamic virtual opponents with instant impact response.",
       linkText: "Enter Arena",
       jpLinkText: "ENTER ARENA // 04",
-      icon: Zap,
+      icon: HandFist,
       startTime: 9,
     },
   ];
@@ -1242,8 +1242,6 @@ function App() {
         {/* UNIFIED FULLSCREEN VIDEO BACKGROUND */}
         <video
           ref={videoRef}
-          autoPlay
-          loop
           muted
           playsInline
           preload="auto"
@@ -1251,6 +1249,10 @@ function App() {
           onLoadedMetadata={(e) => {
             if (e.currentTarget.duration) {
               setDuration(e.currentTarget.duration);
+            }
+            if (!isUnlocked) {
+              e.currentTarget.currentTime = 0;
+              e.currentTarget.pause();
             }
           }}
           onTimeUpdate={(e) => {
@@ -1276,8 +1278,26 @@ function App() {
         </video>
         
         {/* Dark overlays to match original style */}
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black z-10 pointer-events-none" />
+
+        {/* SCROLL CUE FOR INTRO VIDEO */}
+        {!isUnlocked && (
+          <div 
+            style={{
+              opacity: Math.max(0, 1 - videoProgress * 2.5),
+              pointerEvents: videoProgress > 0.3 ? 'none' : 'auto'
+            }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 transition-opacity duration-300 select-none pointer-events-none"
+          >
+            <span className="font-dela text-[10px] sm:text-xs text-white/80 tracking-[0.25em] uppercase flex items-center gap-2 drop-shadow-md">
+              Scroll To Enter <span className="text-[#e60012] font-noto tracking-normal font-normal">// スクロール</span>
+            </span>
+            <div className="w-5 h-8 rounded-full border border-white/40 flex items-start justify-center p-1.5 shadow-lg bg-black/30 backdrop-blur-sm">
+              <div className="w-1 h-2 rounded-full bg-[#e60012] animate-bounce" />
+            </div>
+          </div>
+        )}
 
         {/* HERO CONTENT OVERLAY */}
         <div 
