@@ -9,7 +9,7 @@ Ensure you have [Node.js](https://nodejs.org/) (v18 or higher recommended) insta
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/SaifuddinM23/shadow.git
+git clone https://github.com/SaifuddinM23/Shadow.git
 cd shadow
 ```
 
