@@ -2,6 +2,7 @@
   "name": "shadow",
   "private": true,
   "version": "0.0.0",
+  "description": "Next-generation AR sports interactive web application",
   "type": "module",
   "scripts": {
     "dev": "vite",
