@@ -106,3 +106,7 @@ Contributions are welcome! To contribute:
 ## 📄 License
 
 This project is private and proprietary. © 2026 shadow.io. All rights reserved.
+
+---
+
+> Last updated: November 2026
