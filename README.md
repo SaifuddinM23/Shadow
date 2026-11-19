@@ -109,4 +109,4 @@ This project is private and proprietary. © 2026 shadow.io. All rights reserved.
 
 ---
 
-> Last updated: November 2026
+> Last updated: 19 November 2026
